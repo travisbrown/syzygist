@@ -1,0 +1,15 @@
+.idea
+.idea_modules
+target
+*/target
+project/boot
+project/project
+*.swp
+*.swo
+project.vim
+tags
+.lib
+*~
+*#
+.DS_Store
+tmp/
