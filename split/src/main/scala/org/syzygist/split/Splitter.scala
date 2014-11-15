@@ -85,9 +85,10 @@ trait Splitter[A] { self =>
 }
 
 object Splitter {
-  def apply[A](underlying: Process1[A, Vector[A]]) = new Splitter[A] {
-    val withDelims = underlying
-  }
+  def apply[A](underlying: Process1[A, Vector[A]]): Splitter[A] =
+    new Splitter[A] {
+      val withDelims = underlying
+    }
 
   /**
    * The default splitting strategy: keep all delimiters and don't condense.
@@ -210,7 +211,7 @@ private[split] class CondensingSplitter[A](wrapped: Splitter[A])
  */
 private[split] class KmpSearchSplitter[A: Equal](seq: Vector[A])
   extends Splitter[A] {
-  private[this] val table: Vector[Int] = {
+  private[this] val table: IndexedSeq[Int] = {
     val arr = Array.ofDim[Int](seq.size)
     arr(0) = -1
 
@@ -229,7 +230,7 @@ private[split] class KmpSearchSplitter[A: Equal](seq: Vector[A])
       }
     }
 
-    arr.toVector
+    arr
   }
 
   val withDelims = {

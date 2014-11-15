@@ -1,12 +1,14 @@
-import sbt._, Keys._
 import com.github.tkawachi.doctest.DoctestPlugin._
+import sbt._, Keys._
+import sbtunidoc.Plugin.unidocSettings
+import scoverage.ScoverageSbtPlugin.instrumentSettings
 
 object SyzygistBuild extends Build {
   lazy val syzygist = Project(
     id = "syzygist",
     base = file("."),
     aggregate = Seq(syzygistSplit, syzygistParse),
-    settings = commonSettings ++ Seq(
+    settings = commonSettings ++ unidocSettings ++ Seq(
       moduleName := "syzygist-root"
     )
   ).dependsOn(syzygistSplit, syzygistParse)
@@ -33,7 +35,7 @@ object SyzygistBuild extends Build {
     )
   )
 
-  def commonSettings = doctestSettings ++ Seq(
+  def commonSettings = doctestSettings ++ instrumentSettings ++ Seq(
     organization := "org.syzygist",
     scalaVersion := "2.11.4",
     crossScalaVersions := Seq("2.10.4", "2.11.4"),
@@ -46,7 +48,9 @@ object SyzygistBuild extends Build {
     resolvers +=
       "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
     libraryDependencies ++= Seq(
-      "org.scalaz.stream" %% "scalaz-stream" % "0.5a",
+      "org.scalaz" %% "scalaz-concurrent" % "7.1.0",
+      "org.scalaz" %% "scalaz-core" % "7.1.0",
+      "org.scalaz.stream" %% "scalaz-stream" % "0.6a",
       "org.scalacheck" %% "scalacheck" % "1.11.6" % "test"
     )
   )
