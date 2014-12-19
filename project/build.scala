@@ -1,7 +1,7 @@
 import com.github.tkawachi.doctest.DoctestPlugin._
 import sbt._, Keys._
 import sbtunidoc.Plugin.unidocSettings
-import scoverage.ScoverageSbtPlugin.instrumentSettings
+import org.scoverage.coveralls.CoverallsPlugin
 
 object SyzygistBuild extends Build {
   lazy val syzygist = Project(
@@ -35,7 +35,7 @@ object SyzygistBuild extends Build {
     )
   )
 
-  def commonSettings = doctestSettings ++ instrumentSettings ++ Seq(
+  def commonSettings = doctestSettings ++ Seq(
     organization := "org.syzygist",
     scalaVersion := "2.11.4",
     crossScalaVersions := Seq("2.10.4", "2.11.4"),
@@ -47,11 +47,12 @@ object SyzygistBuild extends Build {
     ),
     resolvers +=
       "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases",
+    doctestWithDependencies := false,
     libraryDependencies ++= Seq(
       "org.scalaz" %% "scalaz-concurrent" % "7.1.0",
       "org.scalaz" %% "scalaz-core" % "7.1.0",
       "org.scalaz.stream" %% "scalaz-stream" % "0.6a",
-      "org.scalacheck" %% "scalacheck" % "1.11.6" % "test"
+      "org.scalacheck" %% "scalacheck" % "1.12.1" % "test"
     )
   )
 }
