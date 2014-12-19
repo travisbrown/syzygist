@@ -1,4 +1,4 @@
-# Syzygist [![Build status](https://secure.travis-ci.org/travisbrown/syzygist.png)](http://travis-ci.org/travisbrown/syzygist)
+# Syzygist [![Build status](https://img.shields.io/travis/travisbrown/syzygist/master.svg)](http://travis-ci.org/travisbrown/syzygist) [![Coverage status](https://img.shields.io/coveralls/travisbrown/syzygist/master.svg)](https://coveralls.io/r/travisbrown/syzygist?branch=master)
 
 This is a small set of utilities for working with
 [Scalaz streams](https://github.com/scalaz/scalaz-stream).
