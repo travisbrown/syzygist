@@ -84,7 +84,8 @@ val sentenceSplitter = whenElt[String](_.startsWith("(")).keepDelimsL.split
 def parseFile(file: String): Process[Task, Tree[String]] =
   io.linesR(file)
     .pipe(sentenceSplitter)
-    .map(_.mkString).filter(_.nonEmpty).evalMap(parseWith[SentenceParser])
+    .map(_.mkString)
+    .filter(_.nonEmpty).evalMap(parseWith(new SentenceParser(_)))
 
 val sentences = parseFile("penn-treebank-rel3/parsed/mrg/wsj/24/wsj_2400.mrg")
 ```

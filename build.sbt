@@ -31,12 +31,4 @@ lazy val split = project.settings(moduleName := "syzygist-split")
 
 lazy val parse = project.settings(moduleName := "syzygist-split")
   .settings(commonSettings: _*)
-  .settings(
-    libraryDependencies <++= (scalaVersion)(v =>
-      Seq(
-        "org.parboiled" %% "parboiled" % "2.0.1",
-        "org.scala-lang" % "scala-reflect" % v
-      )
-    )
-  )
-
+  .settings(libraryDependencies += "org.parboiled" %% "parboiled" % "2.0.1")
