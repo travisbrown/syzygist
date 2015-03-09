@@ -36,3 +36,8 @@ lazy val split = project.settings(moduleName := "syzygist-split")
 lazy val parse = project.settings(moduleName := "syzygist-split")
   .settings(commonSettings: _*)
   .settings(libraryDependencies += "org.parboiled" %% "parboiled" % "2.1.0")
+
+lazy val benchmarks = project
+  .settings(commonSettings: _*)
+  .settings(jmhSettings: _*)
+  .dependsOn(split, parse)
