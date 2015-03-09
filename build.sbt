@@ -24,7 +24,7 @@ lazy val commonSettings = doctestSettings ++ Seq(
 )
 
 lazy val root = project.in(file(".")).settings(moduleName := "syzygist-root")
-  .aggregate(split, parse)
+  .aggregate(split, parse, benchmarks)
   .dependsOn(split, parse)
   .settings(unidocSettings: _*)
   .settings(commonSettings: _*)
@@ -40,4 +40,5 @@ lazy val parse = project.settings(moduleName := "syzygist-split")
 lazy val benchmarks = project
   .settings(commonSettings: _*)
   .settings(jmhSettings: _*)
+  .settings(libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.4" % "test")
   .dependsOn(split, parse)
