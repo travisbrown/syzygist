@@ -13,12 +13,10 @@ lazy val commonSettings = doctestSettings ++ Seq(
   doctestWithDependencies := false,
   dependencyUpdatesFailBuild := true,
   dependencyUpdatesExclusions :=
-    moduleFilter("org.scalaz.stream", "scalaz-stream", "0.6a") |
-    moduleFilter(organization = "org.scoverage", revision = "1.0.1"),
+    moduleFilter("org.scalaz.stream", "scalaz-stream", "0.7a") |
+    moduleFilter("org.openjdk.jmh"),
   libraryDependencies ++= Seq(
-    "org.scalaz" %% "scalaz-concurrent" % "7.1.1",
-    "org.scalaz" %% "scalaz-core" % "7.1.1",
-    "org.scalaz.stream" %% "scalaz-stream" % "0.6a",
+    "org.scalaz.stream" %% "scalaz-stream" % "0.7a",
     "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
   )
 )
