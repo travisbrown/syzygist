@@ -31,7 +31,7 @@ lazy val split = project.settings(moduleName := "syzygist-split")
   .settings(commonSettings: _*)
   .settings(scalacOptions += "-Xfatal-warnings")
 
-lazy val parse = project.settings(moduleName := "syzygist-split")
+lazy val parse = project.settings(moduleName := "syzygist-parse")
   .settings(commonSettings: _*)
   .settings(libraryDependencies += "org.parboiled" %% "parboiled" % "2.1.0")
 
