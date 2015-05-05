@@ -34,6 +34,38 @@ object SplitSpec extends Properties("split") {
     res.sameElements(Vec.onSubsequence(seq)(v))
   }
 
+  property("startsWith") = forAll { (v: Vector[Elt], seq: Vector[Elt]) =>
+    val res = Process.emitAll(v).pipe(Splitter.startsWith(seq).split).toList
+
+    res.sameElements(
+      Vec.dropInitBlank(Vec.keepDelimsL(Vec.onSubsequence(seq)(v)))
+    )
+  }
+
+  property("startsWithOneOf") = forAll { (v: Vector[Elt], delims: Vector[Elt]) =>
+    val res = Process.emitAll(v).pipe(Splitter.startsWithOneOf(delims).split).toList
+
+    res.sameElements(
+      Vec.dropInitBlank(Vec.keepDelimsL(Vec.whenElt[Elt](a => delims.exists(a === _))(v)))
+    )
+  }
+
+  property("endsWith") = forAll { (v: Vector[Elt], seq: Vector[Elt]) =>
+    val res = Process.emitAll(v).pipe(Splitter.endsWith(seq).split).toList
+
+    res.sameElements(
+      Vec.dropFinalBlank(Vec.keepDelimsR(Vec.onSubsequence(seq)(v)))
+    )
+  }
+
+  property("endsWithOneOf") = forAll { (v: Vector[Elt], delims: Vector[Elt]) =>
+    val res = Process.emitAll(v).pipe(Splitter.endsWithOneOf(delims).split).toList
+
+    res.sameElements(
+      Vec.dropFinalBlank(Vec.keepDelimsR(Vec.whenElt[Elt](a => delims.exists(a === _))(v)))
+    )
+  }
+
   property("condense") = forAll { (v: Vector[Elt], delims: Set[Elt]) =>
     val res = Process.emitAll(v).pipe(Splitter.oneOf(delims.toVector).condense.split).toList
 

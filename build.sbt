@@ -18,6 +18,12 @@ lazy val commonSettings = doctestSettings ++ Seq(
   libraryDependencies ++= Seq(
     "org.scalaz.stream" %% "scalaz-stream" % "0.7a",
     "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+  ),
+  ScoverageSbtPlugin.ScoverageKeys.coverageHighlighting := (
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, 10)) => false
+      case _ => true
+    }
   )
 )
 
